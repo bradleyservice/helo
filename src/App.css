@@ -5,3 +5,8 @@
 body {
   background-image: linear-gradient(to right, #FF70A6, #FF9770, #FFD670, #E9FF70);
 }
+
+img {
+  max-width: 250px;
+}
+

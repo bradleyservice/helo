@@ -33,6 +33,10 @@ app.post('/api/auth/register', ctrl.register);
 
 app.post('/api/auth/login', ctrl.login);
 
-app.get('/api/posts/:userid', ctrl.getAllPosts);
+app.get('/api/posts', ctrl.getAllPosts);
+
+app.get('/api/post/:postid', ctrl.getOnePost);
+
+app.post('/api/post/:userid', ctrl.createPost);
 
 app.listen(SERVER_PORT, () => console.log(`server is at port ${SERVER_PORT}`));
