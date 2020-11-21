@@ -30,13 +30,11 @@ massive({
 }).catch(err => console.log(err));
 
 app.post('/api/auth/register', ctrl.register);
-
 app.post('/api/auth/login', ctrl.login);
-
 app.get('/api/posts', ctrl.getAllPosts);
-
 app.get('/api/post/:postid', ctrl.getOnePost);
-
-app.post('/api/post/:userid', ctrl.createPost);
+app.post('/api/post', ctrl.createPost);
+app.delete('/api/post/:postid', ctrl.deletePost);
+app.post('/api/auth/logout', ctrl.logout);
 
 app.listen(SERVER_PORT, () => console.log(`server is at port ${SERVER_PORT}`));

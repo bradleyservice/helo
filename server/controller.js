@@ -38,47 +38,29 @@ module.exports = {
     getAllPosts: async (req, res) => {
         const db = req.app.get('db');
         const {userposts, userid, search} = req.query;
-        // console.log(userposts, userid, search)
-        // const {userid} = req.params;
-        let posts = await db.get_all_posts([userposts, userid, search])
-        console.log(posts)
         try {
-            res.status(200).send(posts)
-            // if(userposts === true && search !== null){
-            //     let filteredPosts = posts.filter(el => el.title.toLowerCase().includes(search.toLowerCase()))
-            //     return res.status(200).send(filteredPosts)
-            // } else if (userposts === false && search === ''){
-            //     let compareUser = await db.check_user(+userid)
-            //     let unAuthor = posts.filter(el => el.username !== compareUser)
-            //     return res.status(200).send(unAuthor)
-            // } else if (userposts === false && search !== null){
-            //     let compareUser = await db.check_user(+userid)
-            //     let filterPosts = posts.filter(el => el.title.toLowerCase().includes(search.toLowerCase()) 
-            //     && compareUser !== el.username)
-            //     return res.status(200).send(filterPosts)
-            // } else if (userposts === 'true' && search === ''){
-            //     return res.status(200).send(posts)
-            // }else {
-            //     res.status(404).send('ew')
-            // }
+            let posts = await db.get_all_posts([userposts, userid, search])
+            return res.status(200).send(posts)
         } catch(err){
             console.log(err)
-            res.sendStatus(500)
+            return res.sendStatus(404)
         }
     },
     getOnePost: async (req, res) => {
         const db = req.app.get('db');
         const {postid} = req.params;
-        let post = await db.get_post(+postid)
-        if(post !== null){
+        try {
+            let post = await db.get_post(+postid)
+            console.log(post)
             return res.status(200).send(post)
-        } else {
-            return res.status(403).send('post does not exist')
+        } catch(err){
+            return res.status(402).send('someone lolol')
         }
     },
     createPost: async (req, res) => {
         const db = req.app.get('db');
-        const {userid} = req.params;
+        const {userid} = req.session.user;
+        console.log(userid)
         const {title, img, content} = req.body;
         let newPost = await db.create_post(title, img, content, +userid)
         if(newPost !== null){
@@ -86,5 +68,21 @@ module.exports = {
         } else {
             return res.status(401).send('post was not added to db')
         }
+    },
+    deletePost: async (req, res) => {
+        const db = req.app.get('db');
+        const {postid} = req.params;
+        try {
+            let deletedPost = await db.delete_post(+postid);
+            console.log(postid)
+            res.status(200).send(deletedPost)
+        } catch(err){
+            console.log('something is not right', err)
+            res.sendStatus(501)
+        }
+    },
+    logout: (req, res) => {
+        req.session.destroy();
+        res.sendStatus(200);
     }
 }

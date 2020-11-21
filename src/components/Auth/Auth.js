@@ -10,7 +10,8 @@ class Auth extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loggedIn: false
         }
     }
 
@@ -26,6 +27,7 @@ class Auth extends Component {
         try {
             const user = await axios.post('/api/auth/register', {username, password})
             this.props.loginUser(user.data)
+            this.setState({loggedIn: true})
             this.props.history.push('/dashboard')
         } catch(err){
             console.log(err)
@@ -38,6 +40,7 @@ class Auth extends Component {
         try {
             const user = await axios.post('/api/auth/login', {username, password})
             this.props.loginUser(user.data)
+            this.setState({loggedIn: true})
             this.props.history.push('/dashboard')
         } catch(err){
             console.log(err)

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 class Post extends Component {
     constructor(props){
@@ -21,24 +22,27 @@ class Post extends Component {
     }
 
 
-    getPost = () => {
-        console.log(this.props.match.params.postid)
-        axios.get(`/api/post/${this.props.match.params.postid}`)
-        .then(res => {
+    getPost = async () => {
+        const {postid} = this.props.match.params;
+        try {
+            const res = await axios.get(`/api/post/${postid}`)
             console.log(res.data)
             this.setState({
-                title: res.data.title,
-                img: res.data.img,
-                content: res.data.content,
-                author: res.data.username,
-                authorPicture: res.data.profile_pic
+                title: res.data[0].title,
+                img: res.data[0].img,
+                content: res.data[0].content,
+                author: res.data[0].username,
+                authorPicture: res.data[0].profile_pic,
+                authorId: res.data[0].author_id
             })
-        })
-        .catch(err => console.log(err))
+        } catch(err){
+            console.log(err)
+        }
     }
     
     render() {
-        const {title, img, content, author, authorPicture} = this.state;
+        const {title, img, content, author, authorPicture, authorId} = this.state;
+        const {userid} = this.props;
         return (
             <div>
                 <h3>{author}</h3> <br/>
@@ -46,10 +50,19 @@ class Post extends Component {
                 <p>{title}</p><br/>
                 <img src={img} alt='post' /><br/>
                 <p>{content}</p><br/>
+                {
+                userid === authorId ?
+                <button onClick={() => this.props.location.state.deletePost(this.props.match.params.postid)}>Delete Post</button>
+                : null
+                }
             </div>
         )
     }
 }
 
+const mapStateToProps = state => {
+    let {userid} = state;
+    return {userid};
+}
 
-export default withRouter(Post)
+export default connect(mapStateToProps)(withRouter(Post))

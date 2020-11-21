@@ -21,6 +21,6 @@ VALUES ('butterman', 'butter', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%
 ('foxy', 'shazam', 'https://cloudfront-us-east-1.images.arcpublishing.com/gray/W6A5RXAUYFA2FKPUCVGLIDCHDU.jpg');
 
 INSERT INTO posts (title, img, content, author_id)
-VALUES ('wow! i stuck to a building', 'https://static.scientificamerican.com/sciam/cache/file/EF448A89-3263-4E12-A5B26AE563F9B835_source.png?w=590&h=800&25C59DFF-77C6-46EE-90B0C86CBEF144A1', 'look at this amazing stuff', 1),
-('new shoes, bro', 'https://www.yankodesign.com/images/design_news/2020/10/this-nike-x-croc/nike_crocs_1.jpg', 'cannot believe i snagged these beauties', 2),
-('fur baby', 'https://numeralpaint.com/wp-content/uploads/2020/07/Cute-Baby-Fox-adult-paint-by-number.jpg', 'its just a painting', 3);
+VALUES ('wow! i stuck to a building', 'https://static.scientificamerican.com/sciam/cache/file/EF448A89-3263-4E12-A5B26AE563F9B835_source.png?w=590&h=800&25C59DFF-77C6-46EE-90B0C86CBEF144A1', 'look at this amazing stuff', 13),
+('new shoes, bro', 'https://www.yankodesign.com/images/design_news/2020/10/this-nike-x-croc/nike_crocs_1.jpg', 'cannot believe i snagged these beauties', 12),
+('fur baby', 'https://numeralpaint.com/wp-content/uploads/2020/07/Cute-Baby-Fox-adult-paint-by-number.jpg', 'its just a painting', 13);
